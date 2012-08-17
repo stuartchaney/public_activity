@@ -5,7 +5,7 @@ module PublicActivity
 
     included do
       class_attribute :activity_owner_global, :activity_recipient_global,
-                      :activity_params_global, :activity_hooks, :activity_project
+                      :activity_params_global, :activity_hooks, :activity_project_global
       self.activity_owner_global     = nil
       self.activity_recipient_global = nil
       self.activity_project_global   = nil
