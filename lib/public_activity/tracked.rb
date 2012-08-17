@@ -5,9 +5,10 @@ module PublicActivity
 
     included do
       class_attribute :activity_owner_global, :activity_recipient_global,
-                      :activity_params_global, :activity_hooks
+                      :activity_params_global, :activity_hooks, :activity_project
       self.activity_owner_global     = nil
       self.activity_recipient_global = nil
+      self.activity_project_global   = nil
       self.activity_params_global    = {}
       self.activity_hooks            = {}
     end
@@ -93,6 +94,10 @@ module PublicActivity
     attr_accessor :activity_key
     @activity_key = nil
 
+    attr_accessor :activity_project
+    @activity_project = nil
+
+
     # @!visibility private
     @@activity_hooks = {}
 
@@ -128,6 +133,7 @@ module PublicActivity
       self.activity_owner = options[:owner] if options[:owner]
       self.activity_params = options[:params] if options[:params]
       self.activity_recipient = options[:recipient] if options[:recipient]
+      self.activity_project = options[:project] if options[:project]
       nil
     end
 
@@ -258,6 +264,9 @@ module PublicActivity
         end
         if options[:params]
           self.activity_params_global = options[:params]
+        end
+        if options[:project]
+          self.activity_project_global = options[:project]
         end
         if options.has_key?(:on) and options[:on].is_a? Hash
           self.activity_hooks = options[:on].delete_if {|_, v| !v.is_a? Proc}.symbolize_keys if RUBY_VERSION == "1.8.7"

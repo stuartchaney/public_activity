@@ -8,13 +8,15 @@ module PublicActivity
     belongs_to :owner, :polymorphic => true
     # Define ownership to a resource targeted by this activity
     belongs_to :recipient, :polymorphic => true
+    belongs_to :project
+
     # Serialize parameters Hash
     serialize :parameters, Hash
 
     class_attribute :template
 
     # should recipient and owner be accessible?
-    attr_accessible :key, :owner, :parameters, :recipient
+    attr_accessible :key, :owner, :parameters, :recipient, :project
     # Virtual attribute returning text description of the activity
     # using basic ERB templating
     #
